@@ -3,17 +3,20 @@ import { useTable, usePagination, useSortBy, useFilters, useGlobalFilter, useRow
 import { GlobalFilter } from './GlobalFilter';
 import { ColumnFilter } from './ColumnFilter';
 import { Checkbox } from './Checkbox';
-import { COLUMNS2 } from './columns2';
+import { COLUMNS3 } from './columns3';
 import axios from 'axios';
-import Link from 'next/link';
+import { useRouter } from 'next/router'
 
-export const CompleteTable2 = () => {
+export const CompleteTable4 = () => {
 
+
+    const router = useRouter()
+    
+    const {cuenta} = router.query
     const [clientes, setClientes] = useState([])
     useEffect(() => {
-        axios.get(`api/clientes`)
+        axios.get(`../api/clientes/${cuenta}`)
             .then(res => {
-            console.log(res)
             setClientes(res.data)
             })
             .catch(err => {
@@ -23,12 +26,26 @@ export const CompleteTable2 = () => {
 
     console.log(clientes)
 
+    const [corridas, setCorridas] = useState([])
+    useEffect(() => {
+        axios.get(`../api/robot/${cuenta}`)
+            .then(res => {
+            console.log(res)
+            setCorridas(res.data)
+            })
+            .catch(err => {
+            console.log(err)
+            })
+    }, [])
+
+    console.log(corridas)
+
 
 
     //hook de useMemo requerido para useTable, arrow function que devuelve datos y luego arreglo de dependencias vacio
     //al usarlo nos aseguramos de que los datos no se recreen en cada render
-    const columns = useMemo(() => COLUMNS2, [])
-    const data = clientes
+    const columns = useMemo(() => COLUMNS3, [])
+    const data = corridas
 
     //use table hook, le paso un objeto como argumento que tiene columnas y filas, se recomienda memoizar las filas y columnas con usememo hook
     // el hook nos regresa un table instance, en esta ocasion se destructura el table instance del hook de manera directa para ahorrarse destructurar despues
@@ -106,8 +123,34 @@ export const CompleteTable2 = () => {
     //en tbody destructuro getTableBodyProps() y luego uso rows.map, lo que sigue es usar prepareRow(row) y regresar <tr>
     // en tr destructuro row.getRowProps() y dentro de ella vuelvo a crear un objeto de row.cells.map que me da acceso a la celda individual
     // la funcion me regresa cell.getCellProps() y en td creo cell.render('Cell')
+
     return (
         <>
+            <div>
+                <h1>Detalles sobre cliente con cuenta {cuenta}</h1>
+
+                <h2>Datos generales</h2>
+                <ol>
+                    {
+                        clientes.map(cliente => {
+                            return (
+                                <>
+                                    <li key={cliente.id}>Nombre: {cliente.nombre}</li>
+                                    <li key={cliente.id}>Cuenta: {cliente.cuenta}</li>
+                                    <li key={cliente.id}>Telefono 1: {cliente.telefono1}</li>
+                                    <li key={cliente.id}>Telefono 2: {cliente.telefono2}</li>
+                                    <li key={cliente.id}>Telefono 3: {cliente.telefono3}</li>
+                                    <li key={cliente.id}>Whatsapp: {cliente.telefonowa}</li>
+                                    <li key={cliente.id}>Status: {cliente.status}</li>
+                                    <li key={cliente.id}>Fecha de modificación: {cliente.date_modified}</li>
+                                </>
+                            )
+                        })
+                    }
+                </ol>
+                        
+            </div>
+            <>
             <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter}/>
             <div>
                 <table {...getTableProps()}>
@@ -174,47 +217,10 @@ export const CompleteTable2 = () => {
                 <button onClick={() => nextPage()} disabled={!canNextPage}>Next</button>
                 <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>{'>>'}</button>
             </div>
-            <h1>Detalles de cuentas seleccionadas</h1>
-            <ol>
-                {
-                    selectedFlatRows.map(selectedRow => {
-                        console.log(selectedRow)
-                        return(
-                            <> 
-                                <br />
-                                <li key={selectedRow.values.id}>Nombre: {selectedRow.values.nombre}</li>
-                                <li key={selectedRow.values.id}>Cuenta: {selectedRow.values.cuenta}</li>
-                                <li key={selectedRow.values.id}>Telefono 1: {selectedRow.values.telefono1}</li>
-                                <li key={selectedRow.values.id}>Telefono 2: {selectedRow.values.telefono2}</li>
-                                <li key={selectedRow.values.id}>Telefono 3: {selectedRow.values.telefono3}</li>
-                                <li key={selectedRow.values.id}>Telefono Whatsapp: {selectedRow.values.telefonowa}</li>
-                                <li key={selectedRow.values.id}>Status: {selectedRow.values.status}</li>
-                                <li key={selectedRow.values.id}>Fecha de modificación: {selectedRow.values.date_modified}</li>
-                                <Link href={`/clientes/${selectedRow.values.cuenta}`} passHref>
-                                    <button type="button">Ir a detalles de cuenta</button>
-                                </Link>
-                                
-                                <br />
-                            </>
-                        )
-                    })
-                }
-            </ol>
-            
+        </>
         </>
     )
+
+    
 }
 
-
-{/* <pre>
-                <code>
-                {JSON.stringify(
-                    {
-                    selectedFlatRows: selectedFlatRows.map(row => row.original)
-                    },
-                    null,
-                    2
-                )}
-                </code>
-                
-            </pre> */}

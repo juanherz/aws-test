@@ -10,7 +10,12 @@ export const COLUMNS3 = [
         Header: 'Cuenta',
         accessor: 'cuenta',
     },
-    
+    {
+        Header: 'Fecha de Pago Instalación',
+        accessor: 'fecha_pago_instalacion',
+        Cell: ({ value }) => { return format(new Date(value), 'dd/MM/yyyy')},
+        disableFilters: true,
+    },
     {
         Header: 'Monto Instalación',
         accessor: 'monto_instalacion',
@@ -21,13 +26,23 @@ export const COLUMNS3 = [
         accessor: 'monto_pl',
         disableFilters: true,
     },
-    
+    {
+        Header: 'Fecha PL',
+        accessor: 'fecha_pl',
+        Cell: ({ value }) => { return format(new Date(value), 'dd/MM/yyyy')},
+        disableFilters: true,
+    },
     {
         Header: 'Monto PP',
         accessor: 'monto_pp',
         disableFilters: true,
     },
-    
+    {
+        Header: 'Fecha PP',
+        accessor: 'fecha_pp',
+        Cell: ({ value }) => { return format(new Date(value), 'dd/MM/yyyy')},
+        disableFilters: true,
+    },
     {
         Header: 'Último Saldo',
         accessor: 'ultimo_saldo',
@@ -41,21 +56,5 @@ export const COLUMNS3 = [
     }
 ]
 
-// {
-//     Header: 'Fecha de Pago Instalación',
-//     accessor: 'fecha_pago_instalacion',
-//     Cell: ({ value }) => { return format(new Date(value), 'dd/MM/yyyy')},
-//     disableFilters: true,
-// },
-// {
-//     Header: 'Fecha PL',
-//     accessor: 'fecha_pl',
-//     Cell: ({ value }) => { return format(new Date(value), 'dd/MM/yyyy')},
-//     disableFilters: true,
-// },
-// {
-//     Header: 'Fecha PP',
-//     accessor: 'fecha_pp',
-//     Cell: ({ value }) => { return format(new Date(value), 'dd/MM/yyyy')},
-//     disableFilters: true,
-// },
+
+

@@ -3,7 +3,7 @@ import { sql_query } from "../../../lib/db";
 const handler = async (req, res) => {
     try{
         const results = await sql_query(`
-            SELECT * FROM corridas_robot WHERE cuenta = 106493261
+            SELECT * FROM corridas_robot
         `)
         return res.json(results)
     }catch(e){

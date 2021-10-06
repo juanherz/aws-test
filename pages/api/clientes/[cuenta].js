@@ -4,7 +4,7 @@ const handler = async (req, res) => {
     try{
         const {cuenta} = req.query
         const results = await sql_query(`
-            SELECT * FROM corridas_robot, clientes WHERE corridas_robot.cuenta = clientes.cuenta AND clientes.cuenta = ${cuenta}
+            SELECT * FROM clientes WHERE cuenta = ${cuenta}
         `)
         return res.json(results)
     }catch(e){
