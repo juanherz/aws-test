@@ -4,13 +4,13 @@ function Navbar() {
     return (
         <nav className='header'>
             <h1 className='logo'>
-                <Link href='/home'>
+                <Link href='/'>
                     <a>405</a>
                 </Link>
             </h1>
             <ul className='main-nav loaded'>
                 <li>
-                    <Link href='/home'>
+                    <Link href='/'>
                         <a>Inicio</a>
                     </Link>
                 </li>
@@ -22,16 +22,6 @@ function Navbar() {
                 <li>
                     <Link href='/corridas'>
                         <a>Corridas</a>
-                    </Link>
-                </li>
-                <li>
-                    <Link href='/profile'>
-                        <a>Perfil</a>
-                    </Link>
-                </li>
-                <li>
-                    <Link href='/protected'>
-                        <a>Protegido</a>
                     </Link>
                 </li>
             </ul>
