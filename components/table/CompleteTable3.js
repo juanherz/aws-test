@@ -5,6 +5,8 @@ import { ColumnFilter } from './ColumnFilter';
 import { Checkbox } from './Checkbox';
 import { COLUMNS3 } from './columns3';
 import axios from 'axios';
+import Link from 'next/link';
+
 
 export const CompleteTable3 = () => {
 
@@ -184,6 +186,33 @@ export const CompleteTable3 = () => {
                 )}
                 </code>
             </pre>
+            <h1>Detalles de cuentas seleccionadas</h1>
+            <ol>
+                {
+                    selectedFlatRows.map(selectedRow => {
+                        console.log(selectedRow)
+                        return(
+                            <> 
+                                <br />
+                                <li key={selectedRow.values.id}>Cuenta: {selectedRow.values.cuenta}</li>
+                                <li key={selectedRow.values.id}>Fecha de Pago Instalación: {selectedRow.values.fecha_pago_instalacion}</li>
+                                <li key={selectedRow.values.id}>Monto Instalación: {selectedRow.values.monto_instalacion}</li>
+                                <li key={selectedRow.values.id}>Monto PL: {selectedRow.values.monto_pl}</li>
+                                <li key={selectedRow.values.id}>Fecha PL: {selectedRow.values.fecha_pl}</li>
+                                <li key={selectedRow.values.id}>Monto PP: {selectedRow.values.monto_pp}</li>
+                                <li key={selectedRow.values.id}>Fecha PP: {selectedRow.values.fecha_pp}</li>
+                                <li key={selectedRow.values.id}>Último Saldo: {selectedRow.values.ultimo_saldo}</li>
+                                <li key={selectedRow.values.id}>Fecha de modificación: {selectedRow.values.date_modified}</li>
+                                <Link href={`/clientes/${selectedRow.values.cuenta}`} passHref>
+                                    <button type="button">Ir a detalles de cuenta</button>
+                                </Link>
+                                
+                                <br />
+                            </>
+                        )
+                    })
+                }
+            </ol>
         </>
     )
 }

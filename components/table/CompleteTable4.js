@@ -5,7 +5,7 @@ import { ColumnFilter } from './ColumnFilter';
 import { Checkbox } from './Checkbox';
 import { COLUMNS3 } from './columns3';
 import axios from 'axios';
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
 
 export const CompleteTable4 = () => {
 
