@@ -175,17 +175,6 @@ export const CompleteTable3 = () => {
                 <button onClick={() => nextPage()} disabled={!canNextPage}>Next</button>
                 <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>{'>>'}</button>
             </div>
-            <pre>
-                <code>
-                {JSON.stringify(
-                    {
-                    selectedFlatRows: selectedFlatRows.map(row => row.original)
-                    },
-                    null,
-                    2
-                )}
-                </code>
-            </pre>
             <h1>Detalles de cuentas seleccionadas</h1>
             <ol>
                 {
